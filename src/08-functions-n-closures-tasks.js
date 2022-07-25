@@ -83,7 +83,7 @@ function getPolynom() {
  */
 function memoize(func) {
   const cache = {};
-  return function (n) {
+  return (n) => {
     if (cache[n] !== undefined) {
       return cache[n];
     }
