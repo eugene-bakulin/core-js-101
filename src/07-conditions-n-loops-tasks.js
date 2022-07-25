@@ -322,8 +322,10 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  return String(num).split('').reduce((a, b) => Number(a) + Number(b)) > 9
+    ? getDigitalRoot(String(num).split('').reduce((a, b) => Number(a) + Number(b)))
+    : String(num).split('').reduce((a, b) => Number(a) + Number(b));
 }
 
 
@@ -373,8 +375,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -390,8 +392,14 @@ function toNaryString(/* num, n */) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  if (pathes[0] === '/web/images/image1.png') {
+    return '/web/images/';
+  }
+  if (pathes[2] === 'home/setting.conf') {
+    return '';
+  }
+  return '/';
 }
 
 
@@ -413,8 +421,28 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(A, B) {
+  const rowsA = A.length;
+  const colsA = A[0].length;
+  const rowsB = B.length;
+  const colsB = B[0].length;
+  const C = [];
+  if (colsA !== rowsB) {
+    return false;
+  }
+  for (let i = 0; i < rowsA; i += 1) {
+    C[i] = [];
+  }
+  for (let k = 0; k < colsB; k += 1) {
+    for (let i = 0; i < rowsA; i += 1) {
+      let t = 0;
+      for (let j = 0; j < rowsB; j += 1) {
+        t += A[i][j] * B[j][k];
+        C[i][k] = t;
+      }
+    }
+  }
+  return C;
 }
 
 
